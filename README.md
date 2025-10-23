@@ -156,12 +156,6 @@ npm run build
 # Deploy the build folder to Netlify
 ```
 
-### Other Platforms
-- Vercel
-- GitHub Pages
-- Render
-- Firebase Hosting
-
 ## 📝 Scripts
 
 - `npm run dev` - Start development server on port 4000
@@ -202,11 +196,9 @@ You may see webpack deprecation warnings about `onAfterSetupMiddleware` and `onB
 
 ## 🚀 Live Demo
 
-Once deployed, the live site will be available here:
+The live site is available here:
 
 - https://yoprint-animeverse.netlify.app/
-
-Update this link after Netlify deployment.
 
 ## ⏱️ Real-Time Debounce Indicator
 

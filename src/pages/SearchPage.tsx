@@ -13,6 +13,7 @@ import {
   setGenre,
 } from '../store/slices/searchSlice';
 import useDebounce from '../hooks/useDebounce';
+import { onCacheChange } from '../utils/cache';
 import Navbar from '../components/Navbar';
 import GenreFilter from '../components/GenreFilter';
 import AnimeCard from '../components/AnimeCard';
@@ -20,6 +21,7 @@ import AnimeCardSkeleton from '../components/AnimeCardSkeleton';
 import AnimeSuggestions from '../components/AnimeSuggestions';
 import EmptyState from '../components/EmptyState';
 import ErrorMessage from '../components/ErrorMessage';
+import CacheStatus from '../components/CacheStatus';
 
 function SearchPage() {
   const dispatch = useAppDispatch();
@@ -37,6 +39,20 @@ function SearchPage() {
     if (debouncedQuery.trim()) {
       dispatch(fetchAnimeSearch({ query: debouncedQuery, page: currentPage }));
     }
+  }, [debouncedQuery, currentPage, dispatch]);
+
+  // Listen for cache changes across tabs
+  useEffect(() => {
+    const unsubscribe = onCacheChange((key, newValue) => {
+      console.log('Cache updated in another tab:', key, newValue);
+      
+      // If search results were updated in another tab, refresh current search
+      if (key.startsWith('search_') && debouncedQuery.trim()) {
+        dispatch(fetchAnimeSearch({ query: debouncedQuery, page: currentPage }));
+      }
+    });
+
+    return unsubscribe;
   }, [debouncedQuery, currentPage, dispatch]);
 
   const handleSearchChange = (value: string) => {
@@ -148,6 +164,8 @@ function SearchPage() {
         )}
         {renderContent()}
       </Container>
+      
+      <CacheStatus />
     </Box>
   );
 }
