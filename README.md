@@ -1,46 +1,205 @@
-# Getting Started with Create React App
+# ✨ AnimeVerse - Ghibli-Inspired Anime Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A beautiful, Ghibli-inspired anime search application with Apple's Liquid design concept. Built with React, TypeScript, Redux, and Material UI featuring glass morphism, smooth animations, and a dreamy aesthetic.
 
-## Available Scripts
+## 🚀 Quick Start
 
-In the project directory, you can run:
+```bash
+npm install
+npm run dev
+```
 
-### `npm start`
+The application will start on **http://localhost:4000**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📋 Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Core Features
+- **Instant Search**: Real-time search with 250ms debouncing
+- **Server-Side Pagination**: Efficient data loading with pagination controls
+- **Detailed Anime Information**: View comprehensive details for each anime
+- **Redux State Management**: Centralized state management using Redux Toolkit
+- **React Router Navigation**: Seamless navigation between search and detail pages
 
-### `npm test`
+### Bonus Implementation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### User Experience Enhancements
+- **Ghibli-Inspired Liquid Theme**: Dreamy Apple Liquid design with Studio Ghibli color palette
+- **Glass Morphism UI**: Frosted glass effect with backdrop blur and transparency
+- **Smart Navbar**: Search bar in navbar that hides app name when focused
+- **Anime Suggestions**: Curated collections of top-rated and trending anime on home page
+- **Genre Filtering**: 11 genre categories for refined searching
+- **Skeleton Loaders**: Smooth loading states that maintain layout consistency  
+- **Responsive Design**: Mobile-first approach with breakpoints for all devices
+- **Liquid Animations**: Smooth card transforms with cubic-bezier easing
+- **Search Result Counter**: Shows the number of results found (24 per page)
 
-### `npm run build`
+#### Technical Excellence
+- **Request Cancellation**: Automatically cancels previous API requests when typing
+- **Race Condition Handling**: Prevents stale data from appearing in search results
+- **Error Handling**: Comprehensive error handling for network failures and API errors
+- **TypeScript Throughout**: Strict typing with minimal use of 'any' types
+- **Clean Code Organization**: Logical folder structure with reusable components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **React 19.2.0** - UI library with hooks-only implementation
+- **TypeScript 4.9.5** - Static typing
+- **Redux Toolkit 2.9.2** - State management
+- **React Router 7.9.4** - Client-side routing
+- **Material UI 7.3.4** - UI component library
+- **Axios 1.12.2** - HTTP client with request cancellation
+- **Jikan API v4** - Anime data source (no authentication required)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📁 Project Structure
 
-### `npm run eject`
+```
+src/
+├── components/          # Reusable UI components
+│   ├── AnimeCard.tsx           # Card displaying anime preview
+│   ├── AnimeCardSkeleton.tsx   # Loading skeleton for cards
+│   ├── SearchBar.tsx           # Search input component
+│   ├── EmptyState.tsx          # Empty state message
+│   └── ErrorMessage.tsx        # Error display component
+├── pages/              # Page components
+│   ├── SearchPage.tsx          # Main search page
+│   └── DetailPage.tsx          # Anime detail page
+├── store/              # Redux store configuration
+│   ├── index.ts                # Store setup
+│   ├── hooks.ts                # Typed hooks
+│   └── slices/
+│       ├── searchSlice.ts      # Search state management
+│       └── detailSlice.ts      # Detail state management
+├── services/           # API services
+│   └── api.ts                  # Jikan API integration
+├── hooks/              # Custom React hooks
+│   └── useDebounce.ts          # Debounce hook
+├── types/              # TypeScript definitions
+│   └── anime.ts                # Anime type definitions
+├── theme/              # Material UI theme
+│   └── theme.ts                # Custom theme configuration
+├── App.tsx             # Main app component with routing
+└── index.tsx           # App entry point with Redux Provider
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🎨 Design Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Ghibli-Inspired Apple Liquid Design
+- **Glass Morphism**: Frosted glass cards with backdrop blur and transparency
+- **Liquid Animations**: Smooth cubic-bezier transitions inspired by Apple's fluid design
+- **Gradient Backgrounds**: Soft, dreamy gradients inspired by Studio Ghibli films
+- **Custom Scrollbar**: Gradient scrollbar with Ghibli colors
+- **Responsive Grid**: 1-2-3-4 column layout based on screen size
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Color Palette
+- **Sky Blue** (#87CEEB) - Howl's Moving Castle skies
+- **Forest Green** (#4A7C59) - Princess Mononoke forests
+- **Deep Teal** (#2C5F5D) - Ocean depth
+- **Sunset Orange** (#FFB347) - Warm twilight
+- **Soft Pink** (#FFB6C1) - Ponyo's gentle spirit
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Responsive Breakpoints
+- **Mobile (xs)**: 1 column - Perfect for on-the-go browsing
+- **Tablet (sm)**: 2 columns - Comfortable two-column view
+- **Desktop (md)**: 3 columns - Balanced grid layout
+- **Large Desktop (lg)**: 4 columns - Maximum content visibility
 
-## Learn More
+## 🔧 API Integration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The app uses the [Jikan API v4](https://docs.api.jikan.moe/) which provides:
+- Free access with no authentication required
+- Comprehensive anime database from MyAnimeList
+- Server-side pagination support
+- Detailed anime information including genres, studios, and trailers
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### API Features Implemented
+- Search with query and pagination parameters
+- Request cancellation for instant search
+- Error handling for rate limiting and network failures
+- Proper TypeScript typing for all API responses
+
+## 💡 Key Implementation Details
+
+### Instant Search with Debouncing
+```typescript
+// Custom debounce hook delays API calls by 250ms
+const debouncedQuery = useDebounce(query, 250);
+
+// Effect triggers search when debounced value changes
+useEffect(() => {
+  if (debouncedQuery.trim()) {
+    dispatch(fetchAnimeSearch({ query: debouncedQuery, page: currentPage }));
+  }
+}, [debouncedQuery, currentPage, dispatch]);
+```
+
+### Request Cancellation
+```typescript
+// Previous requests are cancelled when new search is initiated
+if (searchCancelToken) {
+  searchCancelToken.cancel('New search initiated');
+}
+searchCancelToken = axios.CancelToken.source();
+```
+
+### Redux State Management
+- **searchSlice**: Manages search query, results, pagination, and loading state
+- **detailSlice**: Manages anime detail data and loading state
+- **Typed Hooks**: Custom `useAppDispatch` and `useAppSelector` for type safety
+
+## 🚢 Deployment
+
+The application is ready to be deployed to any static hosting service:
+
+### Netlify (Recommended)
+```bash
+npm run build
+# Deploy the build folder to Netlify
+```
+
+### Other Platforms
+- Vercel
+- GitHub Pages
+- Render
+- Firebase Hosting
+
+## 📝 Scripts
+
+- `npm run dev` - Start development server on port 4000
+- `npm start` - Start development server (default port 3000)
+- `npm run build` - Build for production
+- `npm test` - Run tests
+
+### Note on Webpack Deprecation Warnings
+You may see webpack deprecation warnings about `onAfterSetupMiddleware` and `onBeforeSetupMiddleware`. These are informational warnings from Create React App and do not affect functionality. They will be resolved when CRA updates to webpack 5's new API.
+
+## 🎯 Requirements Met
+
+✅ React 18+ with hooks-only implementation  
+✅ TypeScript with proper typing throughout  
+✅ React Router for navigation  
+✅ Redux Toolkit for state management  
+✅ Material UI component library  
+✅ Server-side pagination  
+✅ Instant search with 250ms debouncing  
+✅ Request cancellation for in-flight requests  
+✅ npm package manager only  
+✅ Runs on port 4000 with `npm run dev`  
+✅ No environment variables required  
+✅ Netflix-inspired responsive layout  
+
+## 🎁 Bonus Features Implemented
+
+✅ Skeleton loading states  
+✅ Empty state handling with helpful messages  
+✅ Comprehensive error handling  
+✅ Race condition handling  
+✅ Mobile responsive design  
+✅ Creative Netflix-inspired UI  
+✅ Smooth animations and transitions  
+✅ Custom scrollbar styling  
+✅ Search result counter  
+✅ Organized and maintainable code structure  
+
+## 📄 License
+
+This project is created for assessment purposes.
