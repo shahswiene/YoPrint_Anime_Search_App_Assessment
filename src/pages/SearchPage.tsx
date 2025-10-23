@@ -27,6 +27,7 @@ function SearchPage() {
     useAppSelector((state) => state.search);
 
   const debouncedQuery = useDebounce(query, 250);
+  const isDebouncing = query !== debouncedQuery && query.trim() !== '';
 
   const handleGenreSelect = (genreId: number | null) => {
     dispatch(setGenre(genreId));
@@ -139,7 +140,7 @@ function SearchPage() {
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
-      <Navbar searchQuery={query} onSearchChange={handleSearchChange} />
+      <Navbar searchQuery={query} onSearchChange={handleSearchChange} isDebouncing={isDebouncing} />
       
       <Container maxWidth="xl" sx={{ py: 4 }}>
         {query.trim() && (

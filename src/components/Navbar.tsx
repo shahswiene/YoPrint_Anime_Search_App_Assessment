@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Box, InputAdornment, TextField, IconButton, Collapse } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, InputAdornment, TextField, IconButton, Collapse, CircularProgress } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface NavbarProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;
+  isDebouncing?: boolean;
 }
 
-function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
+function Navbar({ searchQuery, onSearchChange, isDebouncing = false }: NavbarProps) {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
   const handleSearchClick = () => {
@@ -115,38 +116,53 @@ function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
               ),
               endAdornment: isSearchExpanded && (
                 <InputAdornment position="end">
-                  <IconButton 
-                    size="small" 
-                    onClick={handleCloseSearch}
-                    sx={{
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        transform: 'scale(1.1)',
-                      },
-                    }}
-                  >
-                    <CloseIcon fontSize="small" />
-                  </IconButton>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    {isDebouncing && searchQuery && (
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        <CircularProgress size={16} thickness={4} sx={{ color: 'primary.main' }} />
+                        <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem' }}>
+                          250ms
+                        </Typography>
+                      </Box>
+                    )}
+                    <IconButton 
+                      size="small" 
+                      onClick={handleCloseSearch}
+                      sx={{
+                        transition: 'all 0.3s',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                        },
+                      }}
+                    >
+                      <CloseIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
                 </InputAdornment>
               ),
             }}
             sx={{
               '& .MuiOutlinedInput-root': {
                 borderRadius: '25px',
-                paddingLeft: '8px',
-                paddingRight: '4px',
+                paddingLeft: isSearchExpanded ? '12px' : '8px',
+                paddingRight: isSearchExpanded ? '12px' : '4px',
                 height: '40px',
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: isSearchExpanded ? 'space-between' : 'center',
                 alignItems: 'center',
               },
               '& .MuiInputAdornment-positionStart': {
-                marginRight: isSearchExpanded ? '8px' : '0',
+                marginRight: isSearchExpanded ? '12px' : '0',
+                marginLeft: 0,
+              },
+              '& .MuiInputAdornment-positionEnd': {
+                marginLeft: isSearchExpanded ? '12px' : '0',
               },
               '& input': {
                 cursor: isSearchExpanded ? 'text' : 'pointer',
-                padding: isSearchExpanded ? '8px 0' : '0',
-                width: isSearchExpanded ? 'auto' : '0',
+                padding: '8px 0',
+                width: isSearchExpanded ? '100%' : '0',
+                flex: isSearchExpanded ? 1 : 0,
               },
             }}
           />
