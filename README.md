@@ -200,6 +200,31 @@ You may see webpack deprecation warnings about `onAfterSetupMiddleware` and `onB
 ✅ Search result counter  
 ✅ Organized and maintainable code structure  
 
+## 🚀 Live Demo
+
+Once deployed, the live site will be available here:
+
+- https://yoprint-animeverse.netlify.app/
+
+Update this link after Netlify deployment.
+
+## ⏱️ Real-Time Debounce Indicator
+
+- Displays a spinner and "250ms" label while typing to indicate the debounce window.
+- Disappears when debounce completes and the search request is fired.
+- Implemented in `src/components/Navbar.tsx` and powered by `useDebounce()` in `src/hooks/useDebounce.ts`.
+
+## 💾 Caching and Cross-Tab Sync
+
+- Client-side cache with TTL via `localStorage` to reduce API calls and speed up repeated searches.
+- Cache keys cover search results, top anime, season now, and anime details.
+- Cross-tab synchronization with `storage` events to refresh data when cache updates in another tab.
+- Files:
+  - `src/utils/cache.ts` – cache set/get/clear with TTL and `onCacheChange()` listener.
+  - `src/services/api.ts` – integrates caching for all major endpoints.
+  - `src/pages/SearchPage.tsx` – listens for cache changes and refreshes results.
+- UI widget `CacheStatus` shows cache size and allows clearing cache.
+
 ## 📄 License
 
 This project is created for assessment purposes.
