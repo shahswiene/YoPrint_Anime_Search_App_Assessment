@@ -37,9 +37,13 @@ function SearchPage() {
 
   useEffect(() => {
     if (debouncedQuery.trim()) {
-      dispatch(fetchAnimeSearch({ query: debouncedQuery, page: currentPage }));
+      dispatch(fetchAnimeSearch({ 
+        query: debouncedQuery, 
+        page: currentPage,
+        genreId: selectedGenre 
+      }));
     }
-  }, [debouncedQuery, currentPage, dispatch]);
+  }, [debouncedQuery, currentPage, selectedGenre, dispatch]);
 
   // Listen for cache changes across tabs
   useEffect(() => {
@@ -48,12 +52,16 @@ function SearchPage() {
       
       // If search results were updated in another tab, refresh current search
       if (key.startsWith('search_') && debouncedQuery.trim()) {
-        dispatch(fetchAnimeSearch({ query: debouncedQuery, page: currentPage }));
+        dispatch(fetchAnimeSearch({ 
+          query: debouncedQuery, 
+          page: currentPage,
+          genreId: selectedGenre 
+        }));
       }
     });
 
     return unsubscribe;
-  }, [debouncedQuery, currentPage, dispatch]);
+  }, [debouncedQuery, currentPage, selectedGenre, dispatch]);
 
   const handleSearchChange = (value: string) => {
     dispatch(setQuery(value));

@@ -26,13 +26,13 @@ const initialState: SearchState = {
 
 export const fetchAnimeSearch = createAsyncThunk<
   SearchResponse,
-  { query: string; page: number },
+  { query: string; page: number; genreId?: number | null },
   { rejectValue: string }
 >(
   'search/fetchAnimeSearch',
-  async ({ query, page }, { rejectWithValue }) => {
+  async ({ query, page, genreId }, { rejectWithValue }) => {
     try {
-      const response = await searchAnime(query, page);
+      const response = await searchAnime(query, page, genreId);
       return response;
     } catch (error: any) {
       if (error.message === 'Request cancelled') {

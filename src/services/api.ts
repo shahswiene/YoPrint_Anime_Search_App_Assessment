@@ -9,14 +9,17 @@ let searchCancelToken: CancelTokenSource | null = null;
 
 export const searchAnime = async (
   query: string,
-  page: number = 1
+  page: number = 1,
+  genreId?: number | null
 ): Promise<SearchResponse> => {
-  // Check cache first
-  const cacheKey = `search_${query}_${page}`;
+  // Build cache key based on whether genre is included
+  const cacheKey = genreId 
+    ? `search_${query}_${page}_genre_${genreId}`
+    : `search_${query}_${page}`;
   const cachedData = cache.get<SearchResponse>(cacheKey);
   
   if (cachedData) {
-    console.log('Returning cached search results for:', query);
+    console.log('Returning cached search results for:', query, genreId ? `(genre: ${genreId})` : '');
     return cachedData;
   }
 
@@ -29,14 +32,21 @@ export const searchAnime = async (
   searchCancelToken = axios.CancelToken.source();
 
   try {
+    const params: any = {
+      q: query,
+      page: page,
+      limit: 24,
+    };
+
+    // Add genre filter if provided
+    if (genreId) {
+      params.genres = genreId;
+    }
+
     const response = await axios.get<SearchResponse>(
       `${API_BASE_URL}/anime`,
       {
-        params: {
-          q: query,
-          page: page,
-          limit: 24,
-        },
+        params,
         cancelToken: searchCancelToken.token,
       }
     );
